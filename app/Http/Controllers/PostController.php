@@ -6,7 +6,7 @@ use App\Models\Post;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Validator;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class PostController extends Controller
 {
@@ -18,10 +18,17 @@ class PostController extends Controller
     public function index(): View
     {
         // get post
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::latest()->paginate(2);
 
         // Kirim data post ke view
         return view('posts.index', compact('posts'));
+    }
+
+    public function generatePDF()
+    {
+        $posts = Post::all();
+        $pdf = PDF::loadView('posts.pdf', compact('posts'));
+        return $pdf->download('posts.pdf');
     }
 
     public function view($code): View
