@@ -26,6 +26,7 @@
 </head>
 <body>
     <h2>Data Posts</h2>
+
     <table>
         <thead>
             <tr>
